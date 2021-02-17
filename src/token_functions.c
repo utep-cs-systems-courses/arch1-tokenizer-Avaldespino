@@ -29,10 +29,24 @@ int non_space_char(char c){
 }
 
 char *word_start(char *s){
-  //  char start;
-  // start = &s;
+  char *word_start_ptr = s;
+  int i;
+  int in_word;
+  in_word = 0;
+  i = 0;
+  while(i < 100){
+    if(space_char(s[i])== 1 && in_word == 1){
+      in_word = 0;
+    }
 
-  return "s";
+    if(non_space_char(s[i]) == 1 && in_word == 0)
+      in_word = 1;
+    *word_start_ptr = s[i];
+    i++;
+  }
+  
+
+  return word_start_ptr;
 }
 
 char *word_terminator(char *word){

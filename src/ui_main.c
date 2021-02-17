@@ -15,7 +15,8 @@ int main(){
   words = count_words(str);
    printf("Word count: %d\n",words);
   
-  
+   char *words_term;
+   *words_term = *word_start(str);
 
   
     
