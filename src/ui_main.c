@@ -10,15 +10,11 @@ int main(){
   
    fgets(str,100,stdin);
    puts(str);
-   int words;
-   words = 0;
-  words = count_words(str);
-   printf("Word count: %d\n",words);
-  
-   char *words_term;
-   *words_term = *word_start(str);
-
-  
+   
+   char **tokens = tokenize(str);
+   
+   printf("Checking to see if it changed\n");
+   print_tokens(tokens);
     
     
     //printf("%d\n",str[i]);
@@ -30,5 +26,5 @@ int main(){
   
  
  done:
-  return 1;
+  return 0;
 }
