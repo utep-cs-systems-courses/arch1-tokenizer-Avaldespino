@@ -12,13 +12,28 @@ typedef struct s_List {
 } List;
 
 /* Initialize the linked list to keep the history. */
-List* init_history();
+List* init_history(){
+  List* list = (List*)malloc(sizeof(List));
+  return list;
+};
 
 /* Add a history item to the end of the list.
    List* list - the linked list
    char* str - the string to store
 */
-void add_history(List *list, char *str);
+void add_history(List *list, char *str){
+  int id;
+  Item addenum = (Item*)malloc(sizeof(Item));
+  addenum->id = 0;
+
+  if(list->root == NULL){
+    list->root = addenum;
+  }
+  short pos = id;
+  char copy_str(*str,pos);
+  Item *step = list->root;
+  
+};
 
 /* Retrieve the string stored in the node where Item->id == id.
    List* list - the linked list
