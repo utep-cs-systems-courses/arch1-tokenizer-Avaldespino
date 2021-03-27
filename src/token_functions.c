@@ -5,15 +5,13 @@
 
 
 int space_char(char c){
-
+  int answer = 0;
    
   // printf("space_char is accessed\n");
-  if(c == ' ' || c == '\t'){
+  answer = isspace(c);
     
 
-    return 1;}
- 
-  else return 0;
+  return answer;
 
 
 }
@@ -21,78 +19,57 @@ int space_char(char c){
 
 int non_space_char(char c){
   // printf("In non space char, this is c:%c\n",c);
-  if (c != ' ' || c != '\t'){
-    
-  
-    return 1;
- }
-  else return 0;
+  int answer = 0;
+
+  answer = isspace(c);
+  return answer.
 
 }
-//char *word_start(char *s){
-// char *zero_ptr ="0";
-// char *temp_ptr;
-// char temp;
-// temp_ptr = s;
-  // printf("in word start\n");
-// while(*temp_ptr != '\0'){
-    // printf("in while\n");
-//  temp = *temp_ptr;
-//  if(non_space_char(temp) == 1){
-//  return temp_ptr;
-//  }
-//  temp_ptr++;
-// }
-  
-//  return zero_ptr;
-// }
+
 
 char *word_start(char *s){
-  if(s == "\0") return "NULL";
+  if(s == "\0") return NULL;
   // printf("This is current word start: %c\n",s);
   if((int)non_space_char(s)){
     // printf("Here is word start: %c\n", s);
-    return &s;}
-  word_start(*s+1);
+    return s;}
+  return word_start(s+1);
 }
 
 char *word_terminator(char *s){
-  if(s == '\0') return "NULL";
+  if(s == '\0') return NULL;
   if((int)space_char(s)){
     // *s = '\0';
     // printf("word_term: %c\n",(*s-1));
-    return *s;}
-
+    return s;}
+  return word_terminator(s+1);
 }
-//char *word_terminator(char *word){
-// char *word_term = "\0";
-// char temp;
-  // printf("Here in word_term\n");
-// while(*word != '\0'){
-// temp = *word;
-    // printf("%c\n",temp);
-// if(space_char(temp)==1){
-// *word = '\0';
-//    break;
-//  }
-//  word++;
-//}
-
-  
-//return word;
-//}
 
 int count_words(char *str){
-  int count,i,in_word;
-  count = 0;
-  i = 0;
-  in_word = 0;
+  int count = 0;
+  int state = 0;
+  char *copy=str;
   
-  while(i<100){
+  while(*copy){
+    printf("%s", copy);
+    count++;
+    if(state = 0){
+      copy = word_start(copy);
+      state = 1;
+    }
+    else{
+    copy = word_terminator(copy);
+    state = 0;
+    }
+      
+      
+ 
+  }
+  /*while(i<100){
     
     // printf("inword = %i\n",in_word);
     if(space_char(str[i])==1 && in_word == 1){
-       printf("This is space_char: %c", str[i]);
+       printf("This is space_char: %c \n", str[i]);
       in_word = 0;
       
       str++;
@@ -101,32 +78,32 @@ int count_words(char *str){
     }
     if (non_space_char(str[i]) == 1 && in_word ==0 ){
       in_word = 1;
-       printf("This is non_space_char: %c", str[i]);
+       printf("This is non_space_char: %c \n", str[i]);
       count++;
     }
     i++;
   }
-  // printf("This is count: %i", count);
+  */
+  //printf("This is count: %i", count);
   return count;
 }
 char *copy_str(char *inStr, short len){
-  printf("First line of copy str\n");
+  // printf("First line of copy str\n");
   
   char *copy;
   copy = malloc(len+1);
   if(!copy){printf("Error in copy allocate\n");}
-  printf("IN copy str\n");
-  while(*inStr){
-    *copy++ = *inStr++;
-  }
-  // for(int i = 0; i <= len; i++){
-  //copy[i] = inStr[i];
-
-  //}
+  //printf("IN copy str\n");
+   for(int i = 0; i <= len; i++){
+  copy[i] = inStr[i];
   
-  printf("Out of loop\n");
+  }
+  
+   // printf("Out of loop\n");
   copy[len] = '\0';
-  printf(copy);
+  printf("This is length, %d", len);
+  printf("This is inStr, %s", inStr);
+  printf("This is copy, %s" ,copy);
     return copy;
 
   }
@@ -141,7 +118,7 @@ char **tokenize(char* str){
   char *end_wrd;
   printf("This is tokenize \n");
   printf("words = %i \n", words);
-  printf("First letter is: %c  \n", start_wrd);
+  printf("First letter is: %c  \n", *start_wrd);
   
 
   for(int i = 0; i<words; i++){
@@ -151,7 +128,7 @@ char **tokenize(char* str){
     printf("After set tokens[i]\n");
     start_wrd = word_start(end_wrd);
   }
-  tokens[words+1] = '\0';
+  tokens[words] = NULL;
   return tokens;
 
 
@@ -159,8 +136,9 @@ char **tokenize(char* str){
 }
 
 void print_tokens(char **tokens){
-  for(int cr = 0; cr < (tokens+cr); cr++)
-    {printf("Here is a check for print_tokens \n");
+   
+  for(int cr = 0; cr < (tokens); cr++)
+    {printf("Here is a check for print_tokens %i \n",cr);
       printf("%s \n", *(tokens+cr));
     }
 }
